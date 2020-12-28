@@ -9,14 +9,16 @@ class User
 	private $status;
 
 
-	function __construct($firstName, $lastName, $login, $password, $role) {
+	function __construct($firstName, $lastName, $login, $password, $role, $status) {
 		$this->firstName = $firstName;
 		$this->lastName = $lastName;
 		$this->login = $login;
 		$this->password = $password;
 		$this->role = $role;
-    }
+		$this->status = $status;
 
+	}
+	
     public function getFirstName(){
 		return $this->firstName;
 	}
@@ -55,6 +57,14 @@ class User
 
 	public function getRole(){
 		return $this->role;
+	}
+
+	public function setStatus($status){
+		$this->status = $status;
+	}
+
+	public function getStatus(){
+		return $this->status;
 	}
 }
 

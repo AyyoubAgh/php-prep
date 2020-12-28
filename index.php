@@ -1,13 +1,10 @@
 <?php
 
-include './dao/connection.php';
-
-    $pdo = new Connection();
-    $stmt = $pdo->query('SELECT * FROM user');
-
-    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        echo $row['firstName'] . '<br>';
-    }
-    echo 'hello';
-
+include './dao/userDaoImpl.php';
+    $uDAO = new UserDAOImpl();
+    
+    var_dump($uDAO->connectUser('admin@super.com','adminsuper'));
+    var_dump($uDAO->getAllUsers());
+    var_dump($uDAO->getUser('admin@super.com'));
+    
 ?>

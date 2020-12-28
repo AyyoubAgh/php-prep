@@ -2,28 +2,35 @@
 
 class Connection extends PDO
 {
-
-    private $db = 'prep_php'; // base de données
-    private $host = 'localhost'; // adresse de la base
-    private $user = 'root'; // nom
-    private $pwd = ''; // mot de passe
-    private $con; //
+    private static $pdo;
+    private $db = 'prep_php'; 
+    private $host = 'localhost'; 
+    private $user = 'root';
+    private $pwd = '';
+    private $con;
     private $dsn;
 
- public function __construct ()
-    {
+    private function __construct (){
         try
         {
             $this->dsn = 'mysql:host='. $this->host .';dbname='. $this->db;
             $this->con = parent::__construct($this->dsn, $this->user, $this->pwd);
-            // pour mysql on active le cache de requête
             if($this->getAttribute(PDO::ATTR_DRIVER_NAME) == 'mysql')
                 $this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+            $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             return $this->con;
         }
         catch(PDOException $e) {
             echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }
+    }
+
+    public static function getInstance(): Connection{
+        if (!isset(self::$pdo)) {
+            self::$pdo = new Connection();
+        }
+        return self::$pdo;
     }
 
 }
