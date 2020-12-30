@@ -1,6 +1,6 @@
 <?php
 
-include_once('./models/user.php');
+include '../models/user.php';
 
 interface UserDAO{
     public function getUser(string $login) : ?User;
